@@ -6,9 +6,7 @@ module.exports = () => {
   const args = minimist(process.argv.slice(2))
 
   let cmd = args._[0] || 'help'
-  let homeCurrency = args._[1]
-  let exchangeCurrency = args._[2]
-  let amount = args._[3]
+
 
   if (args.version || args.v) {
     cmd = 'version'
@@ -20,6 +18,9 @@ module.exports = () => {
 
   switch (cmd) {
     case 'convert':
+      let homeCurrency = args._[1]
+      let exchangeCurrency = args._[2]
+      let amount = args._[3]
       require('./cmds/convert')(homeCurrency,exchangeCurrency,amount)
       break
 
@@ -28,7 +29,9 @@ module.exports = () => {
       break
 
     case 'create-user':
-      require('./cmds/createUser')()
+      let un = args._[1]
+      let pw = args._[2]
+      require('./cmds/createUser')(un,pw)
       break
 
     case 'version':

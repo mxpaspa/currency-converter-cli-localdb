@@ -35,12 +35,9 @@ module.exports = async (homeCurrency,exchangeCurrency,amount) => {
     let epoch = convertToEpoch(unixTime)
 
     User.findOne({username : 'thirduser'}).then(function(record){
-      console.log(record);
       record.logFiles.push(logFile);
       record.save();
     });
-
-
 
     console.log(conversion.query.from,conversion.query.to,conversion.result,conversion.info.rate,conversion.date,epoch)
 
