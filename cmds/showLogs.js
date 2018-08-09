@@ -1,4 +1,4 @@
-const Logs = require('../models/conversionHistory')
+const Logs = require('../models/conversionHistoryModel')
 const logFiles = require('./convert')
 const mongoose = require('mongoose');
 

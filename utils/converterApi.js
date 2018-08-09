@@ -1,27 +1,21 @@
 const axios = require('axios')
 const mongoose = require('mongoose');
-const Log = require('../models/conversionHistory')
+const Log = require('../models/conversionHistoryModel')
 
 module.exports = async (from,to,amount) => {
 
-  // mongoose.connect('mongodb://paspam:witchhammer12@ds117422.mlab.com:17422/converter-cli',{
-  //   useNewUrlParser: true})
-  //   .then(() => {
-  //     console.log("Connected to Database");
-  //   })
-  //   .catch((err) => {
-  //       console.log("Not Connected to Database ERROR! ", err);
-  //   });
+  // define the mlab database url
   var mongoose = require('mongoose');
-
   var uri = 'mongodb://paspam:convertercli12@ds117422.mlab.com:17422/converter-cli';
 
+  // define a timeout (required for mlab)
   var options = {
         "keepAlive" : 300000,
         "connectTimeoutMS" : 30000,
         useNewUrlParser: true
   }
 
+  // connect to mongodb
   mongoose.connect(uri, options);
   var db = mongoose.connection;
   db.on('error', console.error.bind(console, 'connection error:'));

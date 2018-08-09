@@ -27,6 +27,10 @@ module.exports = () => {
       require('./cmds/showLogs')()
       break
 
+    case 'create-user':
+      require('./cmds/createUser')()
+      break
+
     case 'version':
       require('./cmds/version')(args)
       break

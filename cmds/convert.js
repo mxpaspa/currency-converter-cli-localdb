@@ -1,6 +1,7 @@
 const ora = require('ora')
 const getConversion = require('../utils/converterApi')
-const Log = require('../models/conversionHistory')
+const Log = require('../models/conversionHistoryModel')
+const User = require('../models/userModel')
 
 module.exports = async (homeCurrency,exchangeCurrency,amount) => {
   const spinner = ora().start()
@@ -33,7 +34,13 @@ module.exports = async (homeCurrency,exchangeCurrency,amount) => {
     let unixTime = conversion.info.timestamp
     let epoch = convertToEpoch(unixTime)
 
-    logFile.save()
+    User.findOne({username : 'thirduser'}).then(function(record){
+      console.log(record);
+      record.logFiles.push(logFile);
+      record.save();
+    });
+
+
 
     console.log(conversion.query.from,conversion.query.to,conversion.result,conversion.info.rate,conversion.date,epoch)
 
