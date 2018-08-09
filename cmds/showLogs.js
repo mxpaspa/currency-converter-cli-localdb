@@ -1,6 +1,7 @@
 const Logs = require('../models/conversionHistoryModel')
 const logFiles = require('./convert')
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
+const User = require('../models/userModel')
 
 module.exports = async() => {
 
@@ -18,17 +19,22 @@ module.exports = async() => {
   db.on('error', console.error.bind(console, 'connection error:'));
 
   try {
-      Logs.find({
-        // amount : 8.60695
-      })
-      .limit(5)
-      .sort('-created_at')
-        .then(doc => {
-          console.log(doc)
-        })
-        .catch(err => {
-          console.error(err)
-        })
+      // Logs.find({
+      //   // amount : 8.60695
+      // })
+      // .limit(5)
+      // .sort('-created_at')
+      //   .then(doc => {
+      //     console.log(doc)
+      //   })
+      //   .catch(err => {
+      //     console.error(err)
+      //   })
+
+        User.findOne({username : 'thirduser'}).then(function(record){
+          console.log(record.logFiles);
+        });
+
   } catch (err) {
         console.error(err)
   }
