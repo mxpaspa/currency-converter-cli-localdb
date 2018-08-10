@@ -46,7 +46,7 @@ module.exports = () => {
                 dbCommands.findUser(User,loginUserName,loginPassword,function(user){
                    if(user) {
                        spinner.stop();
-                       console.log(user);
+                       console.log("success fully logged in");
 
                        prompt.start();
                        prompt.get(['homecurrency', 'exchangecurrency','amount'], function (err, result) {

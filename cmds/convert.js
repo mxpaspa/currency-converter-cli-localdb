@@ -41,7 +41,11 @@ module.exports = async (homeCurrency,exchangeCurrency,amount,loginUserName) => {
       record.save();
     });
 
-    console.log(conversion.query.from,conversion.query.to,conversion.result,conversion.info.rate,conversion.date,epoch)
+    console.log("your home currency: "+conversion.query.from+ '\n' +
+                "your exchange currenncy: "+conversion.query.to+ '\n' +
+                "converted amount: "+conversion.result+ '\n' +
+                "conversion rate: "+conversion.info.rate+ '\n' +
+                "date since conversion rate changed: "+conversion.date,epoch)
 
   } catch (err) {
     spinner.stop()

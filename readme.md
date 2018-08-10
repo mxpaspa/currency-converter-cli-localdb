@@ -1,12 +1,3 @@
-<p align="center">
-  <img src="https://i.imgur.com/ddhPSQ4.png" height="64">
-  <h3 align="center">cash-cli</h3>
-  <p align="center">Convert Currency Rates directly from your Terminal!<p>
-  </p>
-<p align="center"><img src="https://cdn.rawgit.com/xxczaki/cash-cli/aa171028/cash.svg" alt="SVG"></p>
-
-<p align="center"><a href="https://github.com/xxczaki/cash-cli/wiki/Introducing-cash-cli-2.0!">🎉 Introducing cash-cli 2.0 🎉</a><p>
-
 # Currency Converter
 
 A CLI application that makes real-time currency conversions
