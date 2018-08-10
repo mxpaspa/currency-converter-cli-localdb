@@ -21,12 +21,12 @@ module.exports = () => {
   }
 
   switch (cmd) {
-    case 'convert':
-      let homeCurrency = args._[1]
-      let exchangeCurrency = args._[2]
-      let amount = args._[3]
-        require('./cmds/convert')(homeCurrency,exchangeCurrency,amount)
-        break
+    // case 'convert':
+    //   let homeCurrency = args._[1]
+    //   let exchangeCurrency = args._[2]
+    //   let amount = args._[3]
+    //     require('./cmds/convert')(homeCurrency,exchangeCurrency,amount)
+    //     break
 
     case 'login':
       prompt.start();
@@ -75,8 +75,34 @@ module.exports = () => {
       break
 
     case 'logs':
-      require('./cmds/showLogs')()
-      break
+    let loginUserName = args._[1]
+    let loginPassword = args._[2]
+    // define the mlab database url
+    var mongoose = require('mongoose');
+    var uri = 'mongodb://paspam:convertercli12@ds117422.mlab.com:17422/converter-cli';
+
+    // define a timeout (required for mlab)
+    var options = {
+          "keepAlive" : 300000,
+          "connectTimeoutMS" : 30000,
+          useNewUrlParser: true
+    }
+
+    // connect to mongodb
+    mongoose.connect(uri, options);
+    var db = mongoose.connection;
+    db.on('error', console.error.bind(console, 'connection error:'));
+
+    User.findOne({username : loginUserName}).then(function(record,isMatch){
+      record.comparePassword(loginPassword,function(err,isMatch){
+        if (err) throw err;
+        console.log(isMatch);
+        require('./cmds/showLogs')(loginUserName)
+
+      })
+    });
+    break
+
 
     case 'create-user':
       let un = args._[1]
