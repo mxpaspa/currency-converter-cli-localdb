@@ -4,6 +4,7 @@ const loggedIn = require('./cmds/login')
 const prompt = require('prompt')
 const isUserAuthenticated = require('./cmds/login')
 const User = require('./models/userModel')
+const ora = require('ora')
 
 
 module.exports = () => {
@@ -35,7 +36,7 @@ module.exports = () => {
         var loginUserName = result.username
         var loginPassword = result.password
 
-        console.log('Command-line input received:');
+        // console.log('Command-line input received:');
         // console.log('  username: ' + result.username);
         // console.log('  password: ' + result.password);
 
@@ -50,7 +51,7 @@ module.exports = () => {
                 "connectTimeoutMS" : 30000,
                 useNewUrlParser: true
           }
-
+          const spinner = ora().start()
           // connect to mongodb
           mongoose.connect(uri, options);
           var db = mongoose.connection;
@@ -59,6 +60,7 @@ module.exports = () => {
           User.findOne({username : loginUserName}).then(function(record,isMatch){
             record.comparePassword(loginPassword,function(err,isMatch){
               if (err) throw err;
+              spinner.stop();
               console.log(isMatch);
 
               prompt.start();
@@ -89,6 +91,7 @@ module.exports = () => {
     }
 
     // connect to mongodb
+    const spinner = ora().start()
     mongoose.connect(uri, options);
     var db = mongoose.connection;
     db.on('error', console.error.bind(console, 'connection error:'));
@@ -97,6 +100,7 @@ module.exports = () => {
       record.comparePassword(loginPassword,function(err,isMatch){
         if (err) throw err;
         console.log(isMatch);
+        spinner.stop()
         require('./cmds/showLogs')(loginUserName)
 
       })

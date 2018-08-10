@@ -2,6 +2,7 @@ const Logs = require('../models/conversionHistoryModel')
 const logFiles = require('./convert')
 const mongoose = require('mongoose')
 const User = require('../models/userModel')
+const ora = require('ora')
 
 module.exports = async(loginUserName) => {
 
@@ -21,6 +22,7 @@ module.exports = async(loginUserName) => {
   try {
 
         User.findOne({username : loginUserName}).then(function(record){
+          
           console.log(record.logFiles);
         });
 
