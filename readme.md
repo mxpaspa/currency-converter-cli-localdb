@@ -21,7 +21,8 @@ converter
 ```
 converter create-user <username> <password>
 ```
-#### 2. Login and run your first conversion: You will be prompted for your credentials. Once you are authenticated follow the prompts and enter the currencies you want to exchange by their symbol. For example `USD` or `EUR`
+#### 2. Login and run your first conversion: You will be prompted for your credentials. Once you are authenticated follow the prompts and enter the currencies you want to exchange by their symbol. For example `USD` or `EUR`.
+#### For symbols reference see: [supportedCurrencies.json](https://github.com/mxpaspa/currency-converter-cli/blob/master/supportedCurrencies.json)
 
 ```
 converter login <username> <password>
