@@ -3,10 +3,12 @@ const getConversion = require('../utils/converterApi')
 const Log = require('../models/conversionHistoryModel')
 const User = require('../models/userModel')
 
+
 module.exports = async (homeCurrency,exchangeCurrency,amount) => {
   const spinner = ora().start()
 
   try {
+
     const conversion = await getConversion(homeCurrency,exchangeCurrency,amount)
     // const weather = await getWeather(location)
 

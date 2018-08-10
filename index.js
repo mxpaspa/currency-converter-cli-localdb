@@ -60,16 +60,16 @@ module.exports = () => {
             record.comparePassword(loginPassword,function(err,isMatch){
               if (err) throw err;
               console.log(isMatch);
-              
 
+              prompt.start();
+              prompt.get(['homecurrency', 'exchangecurrency','amount'], function (err, result) {
+                  var homeCurrency = result.homecurrency
+                  var exchangeCurrency = result.exchangecurrency
+                  var amount = result.amount
+                  require('./cmds/convert')(homeCurrency,exchangeCurrency,amount)
+              });
             })
           });
-
-          // require('./cmds/login')(loginUserName,loginPassword)
-          // setTimeout(function(){
-          //   console.log(isUserAuthenticated(loginUserName,loginPassword))
-          // },3000)
-
         }
       });
       break
