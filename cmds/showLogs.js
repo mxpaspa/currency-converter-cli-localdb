@@ -22,7 +22,7 @@ module.exports = async(loginUserName) => {
   try {
 
         User.findOne({username : loginUserName}).then(function(record){
-          
+
           console.log(record.logFiles);
         });
 
