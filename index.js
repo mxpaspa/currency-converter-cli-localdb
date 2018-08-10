@@ -66,7 +66,7 @@ module.exports = () => {
                   var homeCurrency = result.homecurrency
                   var exchangeCurrency = result.exchangecurrency
                   var amount = result.amount
-                  require('./cmds/convert')(homeCurrency,exchangeCurrency,amount)
+                  require('./cmds/convert')(homeCurrency,exchangeCurrency,amount,loginUserName)
               });
             })
           });
