@@ -94,7 +94,24 @@ module.exports = () => {
       case 'create-user':
         let un = args._[1]
         let pw = args._[2]
-        require('./cmds/createUser')(un,pw)
+        dbCommands.connectDb(function(db){
+          const spinner = ora().start()
+          db.on('error', console.error.bind(console, 'connection error:'));
+          dbCommands.createUser(User,un,pw,function(newUser){
+
+            if(newUser) {
+                spinner.stop()
+                console.log("Successfully created user");
+                // require('./cmds/showLogs')(loginUserName)
+            }
+            else {
+              console.log("failed to create user");
+            }
+
+
+          })
+        })
+        // require('./cmds/createUser')(un,pw)
         break
 
       case 'version':

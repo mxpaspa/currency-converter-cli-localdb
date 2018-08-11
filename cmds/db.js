@@ -9,6 +9,7 @@ function findUser(User,loginUserName,loginPassword, cb) {
   });
 }
 
+
 function connectDb(cb) {
   var mongoose = require('mongoose');
   var uri = 'mongodb://paspam:convertercli12@ds117422.mlab.com:17422/converter-cli';
@@ -24,7 +25,19 @@ function connectDb(cb) {
   cb(db);
 }
 
+function createUser(User,un,pw,cb){
+  // create a user a new user
+  var newUser = new User({
+      username: un,
+      password: pw,
+  });
+
+  newUser.save();
+  cb(newUser)
+}
+
 module.exports  =  {
   findUser,
-  connectDb
+  connectDb,
+  createUser
 }
