@@ -36,9 +36,14 @@ module.exports = async (homeCurrency,exchangeCurrency,amount,loginUserName) => {
     let unixTime = conversion.info.timestamp
     let epoch = convertToEpoch(unixTime)
 
+    logFile.save()
+
     User.findOne({username : loginUserName}).then(function(record){
+
       record.logFiles.push(logFile);
       record.save();
+
+
     });
 
     console.log("your home currency: "+conversion.query.from+ '\n' +

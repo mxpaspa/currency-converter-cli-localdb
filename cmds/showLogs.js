@@ -21,10 +21,13 @@ module.exports = async(loginUserName) => {
 
   try {
 
-        User.findOne({username : loginUserName}).then(function(record){
+        User.findOne({username : loginUserName},{ logFiles: { $slice: -5 } })
+        .then(function(record){
 
-          console.log(record.logFiles);
-        });
+          // .sort({'created_at': -1})
+          // .limit(5)
+          console.log(record);
+        })
 
   } catch (err) {
         console.error(err)
