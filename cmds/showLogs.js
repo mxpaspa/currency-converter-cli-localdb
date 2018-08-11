@@ -20,13 +20,12 @@ module.exports = async(loginUserName) => {
   db.on('error', console.error.bind(console, 'connection error:'));
 
   try {
-
+        
         User.findOne({username : loginUserName},{ logFiles: { $slice: -5 } })
         .then(function(record){
 
-          // .sort({'created_at': -1})
-          // .limit(5)
-          console.log(record);
+          console.log(record.logFiles);
+
         })
 
   } catch (err) {

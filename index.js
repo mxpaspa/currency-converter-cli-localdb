@@ -10,11 +10,11 @@ const isUserAuthenticated = require('./cmds/login')
 const User = require('./models/userModel')
 const ora = require('ora')
 const dbCommands = require('./cmds/db');
-const state = require('./utils/state.js')
-
 
 module.exports = () => {
 
+  var cli = {};
+  cli.responders = {};
 
   const args = minimist(process.argv.slice(2))
 
@@ -30,6 +30,29 @@ module.exports = () => {
   }
 
   switch (cmd) {
+
+    case 'create-user':
+      let un = args._[1]
+      let pw = args._[2]
+      dbCommands.connectDb(function(db){
+        const spinner = ora().start()
+        db.on('error', console.error.bind(console, 'connection error:'));
+        dbCommands.createUser(User,un,pw,function(newUser){
+
+          if(newUser) {
+              spinner.stop()
+              console.log("Successfully created user");
+              // require('./cmds/showLogs')(loginUserName)
+          }
+          else {
+            console.log("failed to create user");
+          }
+
+
+        })
+      })
+      // require('./cmds/createUser')(un,pw)
+      break
 
     case 'login':
       prompt.start();
@@ -60,7 +83,8 @@ module.exports = () => {
                      cli.init()
                 }
                 else {
-                    console.log("AuthenticationFailed");
+                    console.log("Authentication Failed");
+                    process.exit(1)
                   }
                })
            })
@@ -70,9 +94,6 @@ module.exports = () => {
       break
   }
 
-
-
-  var cli = {};
 
   // Init script
   cli.init = function(){
@@ -106,7 +127,6 @@ module.exports = () => {
     });
 
   };
-  // cli.init()
 
     // Input processor
   cli.processInput = function(str){
@@ -143,15 +163,13 @@ module.exports = () => {
     }
   };
 
-    // Input handlers
   e.on('help',function(str){
-    // cli.responders.help();
+
     require('./cmds/help')(str)
   });
 
   e.on('logs',function(str){
-    console.log(dbCommands.loginUserName,dbCommands.loginPassword);
-    // define the mlab database url
+
     dbCommands.connectDb(function(db){
       const spinner = ora().start()
       db.on('error', console.error.bind(console, 'connection error:'));
@@ -167,4 +185,33 @@ module.exports = () => {
       })
     })
   });
+
+  e.on('convert',function(str){
+    var arr = str.split(' ');
+    var homeCurrency = typeof(arr[1]) == 'string' && arr[1].trim().length > 0 ? arr[1].trim() : false;
+    var exchangeCurrency = typeof(arr[2]) == 'string' && arr[1].trim().length > 0 ? arr[2].trim() : false;
+    var amount = typeof(arr[3]) == 'string' && arr[1].trim().length > 0 ? arr[3].trim() : false;
+
+    if(homeCurrency,exchangeCurrency,amount){
+
+      require('./cmds/convert')(homeCurrency,exchangeCurrency,amount,dbCommands.loginUserName)
+
+    }
+    // cli.responders.convert(str);
+  });
+
+  // cli.responders.convert = function (str) {
+  //   var arr = str.split('--');
+  //   var start = typeof(arr[1]) == 'string' && arr[1].trim().length > 0 ? arr[1].trim() : false;
+  //   if(start){}
+  //     prompt.start();
+  //     prompt.get(['homecurrency', 'exchangecurrency','amount'], function (err, result) {
+  //         var homeCurrency = result.homecurrency
+  //         var exchangeCurrency = result.exchangecurrency
+  //         var amount = result.amount
+  //
+  //         require('./cmds/convert')(homeCurrency,exchangeCurrency,amount,dbCommands.loginUserName)
+  //       });
+  //
+  // }
 }
