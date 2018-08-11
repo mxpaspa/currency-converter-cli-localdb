@@ -1,4 +1,5 @@
-
+var loginUserName = "";
+var loginPassword = "";
 
 function findUser(User,loginUserName,loginPassword, cb) {
     User.findOne({username : loginUserName}).then(function(record,isMatch){
@@ -39,5 +40,7 @@ function createUser(User,un,pw,cb){
 module.exports  =  {
   findUser,
   connectDb,
-  createUser
+  createUser,
+  loginUserName,
+  loginPassword
 }
