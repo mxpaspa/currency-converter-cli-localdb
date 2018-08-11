@@ -24,7 +24,6 @@ module.exports = () => {
 
     switch (cmd) {
 
-  //////// please refactor this
       case 'login':
         prompt.start();
         prompt.get(['username', 'password'], function (err, result) {
@@ -67,7 +66,7 @@ module.exports = () => {
             }
         });
         break
-  //////// please refactor this
+
       case 'logs':
       let loginUserName = args._[1]
       let loginPassword = args._[2]
@@ -84,8 +83,6 @@ module.exports = () => {
           else {
             console.log("You are not authenticated");
           }
-
-
         })
       })
       break
