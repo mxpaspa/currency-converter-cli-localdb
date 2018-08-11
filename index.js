@@ -51,7 +51,7 @@ module.exports = () => {
 
         })
       })
-      // require('./cmds/createUser')(un,pw)
+
       break
 
     case 'login':
@@ -60,10 +60,6 @@ module.exports = () => {
 
       let loginUn = result.username
       let loginPw = result.password
-
-        // console.log('Command-line input received:');
-        // console.log('  username: ' + result.username);
-        // console.log('  password: ' + result.password);
 
         if(loginUn && loginPw){
           // define the mlab database url
@@ -78,7 +74,7 @@ module.exports = () => {
                   if(user) {
                       spinner.stop();
                       console.log("Success! you are logged in");
-                     //  require('./utils/state.js')(loginUserName,loginPassword);
+
                       // initialize the CLI if the user authenticates
                      cli.init()
                 }
@@ -88,8 +84,7 @@ module.exports = () => {
                   }
                })
            })
-
-          }
+        }
       });
       break
   }
@@ -98,10 +93,8 @@ module.exports = () => {
   // Init script
   cli.init = function(){
 
-    // Send to console, in dark blue
     console.log('\x1b[34m%s\x1b[0m','converter-cli is running');
 
-    // Start the interface
     var _interface = readline.createInterface({
       input: process.stdin,
       output: process.stdout,
@@ -128,12 +121,12 @@ module.exports = () => {
 
   };
 
-    // Input processor
+  // handle user input and send to the appropriate event
   cli.processInput = function(str){
     str = typeof(str) == 'string' && str.trim().length > 0 ? str.trim() : false;
-    // Only process the input if the user actually wrote something, otherwise ignore it
+
     if(str){
-      // Codify the unique strings that identify the different unique questions allowed be the asked
+
       var uniqueInputs = [
         'login',
         'help',
@@ -143,7 +136,7 @@ module.exports = () => {
 
       ];
 
-      // Go through the possible inputs, emit event when a match is found
+      // verfiy the user is sending valid input
       var matchFound = false;
       var counter = 0;
       uniqueInputs.some(function(input){
@@ -157,17 +150,19 @@ module.exports = () => {
 
       // If no match is found, tell the user to try again
       if(!matchFound){
-        console.log("Sorry, try again");
+        console.log("Did not match any possible commands");
       }
 
     }
   };
 
+  // handle the 'help' event
   e.on('help',function(str){
 
     require('./cmds/help')(str)
   });
 
+  // handle the 'logs' event
   e.on('logs',function(str){
 
     dbCommands.connectDb(function(db){
@@ -186,6 +181,7 @@ module.exports = () => {
     })
   });
 
+  // handle the 'convert' event
   e.on('convert',function(str){
     var arr = str.split(' ');
     var homeCurrency = typeof(arr[1]) == 'string' && arr[1].trim().length == 3 ? arr[1].trim() : false;
@@ -199,6 +195,6 @@ module.exports = () => {
     } else {
       console.log("Currecnies must be of the format 'USD' or 'EUR' and make sure to include an amount");
     }
-    // cli.responders.convert(str);
+    
   });
 }
