@@ -77,7 +77,7 @@ module.exports = () => {
                dbCommands.findUser(User,loginUn,loginPw,function(user){
                   if(user) {
                       spinner.stop();
-                      console.log("success fully logged in");
+                      console.log("Success! you are logged in");
                      //  require('./utils/state.js')(loginUserName,loginPassword);
                       // initialize the CLI if the user authenticates
                      cli.init()
@@ -188,30 +188,17 @@ module.exports = () => {
 
   e.on('convert',function(str){
     var arr = str.split(' ');
-    var homeCurrency = typeof(arr[1]) == 'string' && arr[1].trim().length > 0 ? arr[1].trim() : false;
-    var exchangeCurrency = typeof(arr[2]) == 'string' && arr[1].trim().length > 0 ? arr[2].trim() : false;
+    var homeCurrency = typeof(arr[1]) == 'string' && arr[1].trim().length == 3 ? arr[1].trim() : false;
+    var exchangeCurrency = typeof(arr[2]) == 'string' && arr[2].trim().length == 3 ? arr[2].trim() : false;
     var amount = typeof(arr[3]) == 'string' && arr[1].trim().length > 0 ? arr[3].trim() : false;
 
-    if(homeCurrency,exchangeCurrency,amount){
-
+    if(homeCurrency && exchangeCurrency && amount !== false){
+      // (homeCurrency !== false) && (exchangeCurrency !== false) && (amount !== false)
       require('./cmds/convert')(homeCurrency,exchangeCurrency,amount,dbCommands.loginUserName)
 
+    } else {
+      console.log("Currecnies must be of the format 'USD' or 'EUR' and make sure to include an amount");
     }
     // cli.responders.convert(str);
   });
-
-  // cli.responders.convert = function (str) {
-  //   var arr = str.split('--');
-  //   var start = typeof(arr[1]) == 'string' && arr[1].trim().length > 0 ? arr[1].trim() : false;
-  //   if(start){}
-  //     prompt.start();
-  //     prompt.get(['homecurrency', 'exchangecurrency','amount'], function (err, result) {
-  //         var homeCurrency = result.homecurrency
-  //         var exchangeCurrency = result.exchangecurrency
-  //         var amount = result.amount
-  //
-  //         require('./cmds/convert')(homeCurrency,exchangeCurrency,amount,dbCommands.loginUserName)
-  //       });
-  //
-  // }
 }
