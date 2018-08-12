@@ -46,7 +46,7 @@ module.exports = () => {
               spinner.stop()
               console.log("Successfully created user!"+ '\n' +
               "login by entering 'converter login'");
-              process.exit(1)
+              // process.exit(1)
               // require('./cmds/showLogs')(loginUserName)
           }
           else {
@@ -56,7 +56,7 @@ module.exports = () => {
 
         })
       })
-
+      process.exit(1)
       break
 
     case 'login':
