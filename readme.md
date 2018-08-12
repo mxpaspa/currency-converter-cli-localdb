@@ -21,7 +21,7 @@ converter help
 ```
 converter create-user <username> <password>
 ```
-#### 2. Login and run your first conversion: You will be prompted for your credentials.  
+#### 2. Login and run your first conversion. You will be prompted for your credentials.  
 
 ```
 converter login
@@ -44,7 +44,7 @@ logs
 ```
 #### 5. In application help:
 ```
-converter help
+help
 ```
 
 

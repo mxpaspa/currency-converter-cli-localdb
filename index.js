@@ -36,8 +36,9 @@ module.exports = () => {
     case 'create-user':
       let un = args._[1]
       let pw = args._[2]
+      const spinner = ora().start()
       dbCommands.connectDb(function(db){
-        const spinner = ora().start()
+
         db.on('error', console.error.bind(console, 'connection error:'));
         dbCommands.createUser(User,un,pw,function(newUser){
 
