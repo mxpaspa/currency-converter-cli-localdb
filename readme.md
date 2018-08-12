@@ -36,11 +36,11 @@ converter <home currency> <exchange currency> <amount>
 converter USD EUR 10
 ```
 
-#### For a symbols reference [supportedCurrencies.json](https://github.com/mxpaspa/currency-converter-cli/blob/master/supportedCurrencies.json)
+#### For a symbols reference [supportedCurrencies.json](https://github.com/mxpaspa/converter-cli-refactored/blob/master/utils/supportedCurrencies.json)
 
 #### 4. After logging in you can retrieve your conversion history, which will present the last 5 conversions executed
 ```
-logs 
+logs
 ```
 #### 5. In application help:
 ```
@@ -50,7 +50,7 @@ converter help
 
 ## Available Currencies
 
-See [supportedCurrencies.json](https://github.com/mxpaspa/currency-converter-cli/blob/master/supportedCurrencies.json) file.
+See [supportedCurrencies.json](https://github.com/mxpaspa/converter-cli-refactored/blob/master/utils/supportedCurrencies.json) file.
 
 ## Third Party Technologies Used:
 
