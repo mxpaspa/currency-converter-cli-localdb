@@ -1,10 +1,9 @@
 const menus = {
   main: `
-    converter [command] <options>
-    refactored
+    
     create a user .............. converter create-user <username> <password>
     login ...................... converter login
-    logs ................... converter logs <username> <password>
+    logs ................... logs (will show the last 5 conversions)
     help ....................... show help menu for a command`,
 
 }
