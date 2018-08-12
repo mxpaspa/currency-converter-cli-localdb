@@ -13,6 +13,10 @@ A CLI application that makes real-time currency conversions
 ```
 converter help
 ```
+#### 5. You can also view the current version from anywhere in your terminal by entering:
+```
+converter version
+```
 
 ## Usage
 

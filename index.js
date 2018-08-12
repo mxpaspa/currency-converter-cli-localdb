@@ -47,8 +47,6 @@ module.exports = () => {
               console.log("Successfully created user!"+ '\n' +
               "login by entering 'converter login'");
               process.exit(0)
-
-              // require('./cmds/showLogs')(loginUserName)
           }
           else {
             console.log("failed to create user");
