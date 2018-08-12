@@ -21,18 +21,28 @@ converter
 ```
 converter create-user <username> <password>
 ```
-#### 2. Login and run your first conversion: You will be prompted for your credentials. Once you are authenticated follow the prompts and enter the currencies you want to exchange by their symbol. For example `USD` or `EUR`.
-#### For symbols reference see: [supportedCurrencies.json](https://github.com/mxpaspa/currency-converter-cli/blob/master/supportedCurrencies.json)
+#### 2. Login and run your first conversion: You will be prompted for your credentials.  [supportedCurrencies.json](https://github.com/mxpaspa/currency-converter-cli/blob/master/supportedCurrencies.json)
 
 ```
-converter login <username> <password>
+converter login
+```
+#### 3. Once you are authenticated run your first conversion.
+
+```
+converter <home currency> <exchange currency> <amount>
+```
+*For example*
+```
+converter <USD> <EUR> <10>
 ```
 
-#### 3. Retrieve your conversion history: this will show you the last 5 conversions you have executed
+#### For symbols reference [supportedCurrencies.json](https://github.com/mxpaspa/currency-converter-cli/blob/master/supportedCurrencies.json)
+
+#### 4. After logging in you can retrieve your conversion history: this will show you the last 5 conversions executed
 ```
-converter logs <username> <password>
+logs <username> <password>
 ```
-#### 4. In application help:
+#### 5. In application help:
 ```
 converter help
 ```

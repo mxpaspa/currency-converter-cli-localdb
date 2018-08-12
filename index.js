@@ -43,7 +43,9 @@ module.exports = () => {
 
           if(newUser) {
               spinner.stop()
-              console.log("Successfully created user");
+              console.log("Successfully created user!"+ '\n' +
+              "login by entering 'converter login'");
+              process.exit(1)
               // require('./cmds/showLogs')(loginUserName)
           }
           else {
