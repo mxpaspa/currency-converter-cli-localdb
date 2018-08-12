@@ -150,6 +150,7 @@ module.exports = () => {
         'help',
         'logs',
         'convert',
+        'symbols'
 
       ];
 
@@ -238,4 +239,9 @@ module.exports = () => {
     }
 
   });
+
+  e.on('symbols',function(str){
+    require('./cmds/symbols')()
+  });
+
 }
