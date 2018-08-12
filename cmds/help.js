@@ -3,7 +3,7 @@ const menus = {
 
     create a user ...............'converter create-user <username> <password>''
     login .......................'converter login'
-    show help.................... 'converter help'
+    show help....................'converter help'
 
     ----------- AFTER AUTHENTICATING ----------------------
 
