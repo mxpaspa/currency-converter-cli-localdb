@@ -33,7 +33,7 @@ convert <home currency> <exchange currency> <amount>
 ```
 *For example:*
 ```
-converter USD EUR 10
+convert USD EUR 10
 ```
 
 #### For a symbols reference [supportedCurrencies.json](https://github.com/mxpaspa/converter-cli-refactored/blob/master/utils/supportedCurrencies.json)
