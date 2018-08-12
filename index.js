@@ -4,22 +4,20 @@ class _events extends events{};
 const e = new _events();
 const minimist = require('minimist')
 const error = require('./utils/error')
-const loggedIn = require('./cmds/login')
 const prompt = require('prompt')
-const isUserAuthenticated = require('./cmds/login')
 const User = require('./models/userModel')
 const ora = require('ora')
 const dbCommands = require('./cmds/db');
+// const terminalStyle = require('./utils/terminalStyle')
 
 module.exports = () => {
 
   var cli = {};
-  cli.responders = {};
 
   const args = minimist(process.argv.slice(2))
 
+  // handle the help and version commands before the cli has been initialized
   let cmd = args._[0] || 'help'
-
 
   if (args.version || args.v) {
     cmd = 'version'
@@ -79,6 +77,7 @@ module.exports = () => {
                      cli.init()
                 }
                 else {
+                    terminalStyle.horizontalLine()
                     console.log("Authentication Failed");
                     process.exit(1)
                   }
@@ -87,8 +86,15 @@ module.exports = () => {
         }
       });
       break
-  }
 
+      case 'version':
+        require('./cmds/version')(args)
+        break
+
+      case 'help':
+        require('./cmds/help')(args)
+        break
+  }
 
   // Init script
   cli.init = function(){
@@ -128,7 +134,7 @@ module.exports = () => {
     if(str){
 
       var uniqueInputs = [
-        'login',
+
         'help',
         'logs',
         'exit',
@@ -171,11 +177,15 @@ module.exports = () => {
       dbCommands.findUser(User,dbCommands.loginUserName,dbCommands.loginPassword,function(user){
 
         if(user) {
+
             spinner.stop()
             require('./cmds/showLogs')(dbCommands.loginUserName)
+            
         }
         else {
+
           console.log("You are not authenticated");
+
         }
       })
     })
@@ -195,6 +205,6 @@ module.exports = () => {
     } else {
       console.log("Currecnies must be of the format 'USD' or 'EUR' and make sure to include an amount");
     }
-    
+
   });
 }

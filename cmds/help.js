@@ -4,7 +4,7 @@ const menus = {
     refactored
     create a user .............. converter create-user <username> <password>
     login ...................... converter login
-    who logs ................... converter logs <username> <password>
+    logs ................... converter logs <username> <password>
     help ....................... show help menu for a command`,
 
 }
