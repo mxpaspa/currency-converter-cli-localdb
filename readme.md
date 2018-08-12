@@ -25,7 +25,7 @@ converter version
 ```
 converter create-user <username> <password>
 ```
-#### 2. Login: you will be prompted for your credentials.  
+#### 2. Login and enter your credentials: 
 
 ```
 converter login
@@ -48,7 +48,7 @@ logs
 ```
 help
 ```
-####6 List available symbols:
+#### 6. List available symbols:
 ```
 symbols
 ```
