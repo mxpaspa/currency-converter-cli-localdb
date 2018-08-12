@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const User = require('../models/userModel')
 const ora = require('ora')
 const terminalStyle = require('../index')
-const chalk = require('chalk')
+
 
 module.exports = async(loginUserName) => {
 
@@ -17,6 +17,19 @@ module.exports = async(loginUserName) => {
         useNewUrlParser: true
   }
 
+  var logStyle ={
+    header:
+`
+---------------------------------------------------------------------
+                            CONVERSION HISTORY
+---------------------------------------------------------------------
+`,
+  footer:
+`
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+`
+  }
   mongoose.connect(uri, options);
   var db = mongoose.connection;
   db.on('error', console.error.bind(console, 'connection error:'));
@@ -26,21 +39,23 @@ module.exports = async(loginUserName) => {
         User.findOne({username : loginUserName},{ logFiles: { $slice: -5 } })
         .then(function(record){
 
+        console.log(logStyle.header);
         for(var i = 0; i < record.logFiles.length; i++){
 
           console.log(
-
-            chalk.blue("created at: ")+record.logFiles[i].created_at+ '\n' +
-            chalk.blue("your home currency: ")+record.logFiles[i].homeCurrency+ '\n' +
-            chalk.blue("your exchange currenncy: ")+record.logFiles[i].exchangeCurrency+ '\n' +
-            chalk.blue("converted amount: ")+record.logFiles[i].convertedAmount+ '\n' +
-            chalk.blue("conversion executed on: ")+record.logFiles[i].dateConversionRan+ '\n' +
-            chalk.blue("date since conversion rate changed: ")+record.logFiles[i].timeConversionCollected+ '\n' +
-            chalk.blue("conversion rate: ")+record.logFiles[i].conversionRate+ '\n'
+            // `---------------------------------------------------------------------`+ '\n' +
+            "created at: "+record.logFiles[i].created_at+ '\n' +
+            "your home currency: "+record.logFiles[i].homeCurrency+ '\n' +
+            "your exchange currenncy: "+record.logFiles[i].exchangeCurrency+ '\n' +
+            "converted amount: "+record.logFiles[i].convertedAmount+ '\n' +
+            "conversion executed on: "+record.logFiles[i].dateConversionRan+ '\n' +
+            "date since conversion rate changed: "+record.logFiles[i].timeConversionCollected+ '\n' +
+            "conversion rate: "+record.logFiles[i].conversionRate+ '\n'
 
           );
 
         }
+        console.log(logStyle.footer);
 
       })
       // console.log(terminalStyle.width);
