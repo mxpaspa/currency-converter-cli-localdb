@@ -27,7 +27,7 @@ function connectDb(cb) {
 }
 
 function createUser(User,un,pw,cb){
-  // create a user a new user
+
   var newUser = new User({
       username: un,
       password: pw,
@@ -36,6 +36,8 @@ function createUser(User,un,pw,cb){
   newUser.save();
   cb(newUser)
 }
+
+
 
 module.exports  =  {
   findUser,

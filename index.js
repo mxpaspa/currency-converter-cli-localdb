@@ -29,6 +29,10 @@ module.exports = () => {
 
   switch (cmd) {
 
+    case 'help':
+      require('./cmds/help')(args)
+      break
+
     case 'create-user':
       let un = args._[1]
       let pw = args._[2]
@@ -125,6 +129,11 @@ module.exports = () => {
       process.exit(0);
     });
 
+    // process.stdout.on('resize', () => {
+    //   console.log('screen size has changed!');
+    //   console.log(`${process.stdout.columns}x${process.stdout.rows}`);
+    // });
+
   };
 
   // handle user input and send to the appropriate event
@@ -137,7 +146,6 @@ module.exports = () => {
 
         'help',
         'logs',
-        'exit',
         'convert',
 
       ];
@@ -162,6 +170,26 @@ module.exports = () => {
     }
   };
 
+
+  // Create centered text on the screen
+  cli.centered = function(str){
+    str = typeof(str) == 'string' && str.trim().length > 0 ? str.trim() : '';
+
+    // Get the available screen size
+    var width = process.stdout.columns;
+
+    // Calculate the left padding there should be
+    var leftPadding = Math.floor((width - str.length) / 2);
+
+    // Put in left padded spaces before the string itself
+    var line = '';
+    for (i = 0; i < leftPadding; i++) {
+        line+=' ';
+    }
+    line+= str;
+    console.log(line);
+  };
+
   // handle the 'help' event
   e.on('help',function(str){
 
@@ -180,7 +208,7 @@ module.exports = () => {
 
             spinner.stop()
             require('./cmds/showLogs')(dbCommands.loginUserName)
-            
+
         }
         else {
 
