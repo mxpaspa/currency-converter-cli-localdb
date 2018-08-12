@@ -25,12 +25,12 @@ converter version
 ```
 converter create-user <username> <password>
 ```
-#### 2. Login and run your first conversion. You will be prompted for your credentials.  
+#### 2. Login: you will be prompted for your credentials.  
 
 ```
 converter login
 ```
-#### 3. Once you are authenticated run your first conversion.
+#### 3. Once you are authenticated, run your first conversion:
 
 ```
 convert <home currency> <exchange currency> <amount>
@@ -40,9 +40,7 @@ convert <home currency> <exchange currency> <amount>
 convert USD EUR 10
 ```
 
-#### For a symbols reference [supportedCurrencies.json](https://github.com/mxpaspa/converter-cli-refactored/blob/master/utils/supportedCurrencies.json)
-
-#### 4. After logging in you can retrieve your conversion history, which will present the last 5 conversions executed
+#### 4. Retrieve your conversion history, which will present the last 5 conversions executed (you must be authenticated).
 ```
 logs
 ```
@@ -50,6 +48,11 @@ logs
 ```
 help
 ```
+####6 List available symbols:
+```
+symbols
+```
+[supportedCurrencies.json](https://github.com/mxpaspa/converter-cli-refactored/blob/master/utils/supportedCurrencies.json)
 
 
 ## Available Currencies
