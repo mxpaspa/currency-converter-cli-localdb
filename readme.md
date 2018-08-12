@@ -7,11 +7,11 @@ A CLI application that makes real-time currency conversions
 #### 1. Install Node.js [HERE](https://nodejs.org/en/download/).
 #### 2. Open your terminal.
 #### 3. Type: `npm install -g converter-cli`.
-#### 4. Wait for NPM to install this package on your computer.
-#### 5. You can now access converter-cli from anywhere in your terminal by entering:
+#### 4. Wait for NPM to install the package on your computer.
+#### 5. You can now access the converter-cli help doc from anywhere in your terminal by entering:
 
 ```
-converter
+converter help
 ```
 
 ## Usage
@@ -21,7 +21,7 @@ converter
 ```
 converter create-user <username> <password>
 ```
-#### 2. Login and run your first conversion: You will be prompted for your credentials.  [supportedCurrencies.json](https://github.com/mxpaspa/currency-converter-cli/blob/master/supportedCurrencies.json)
+#### 2. Login and run your first conversion: You will be prompted for your credentials.  
 
 ```
 converter login
@@ -31,16 +31,16 @@ converter login
 ```
 converter <home currency> <exchange currency> <amount>
 ```
-*For example*
+*For example:*
 ```
-converter <USD> <EUR> <10>
+converter USD EUR 10
 ```
 
-#### For symbols reference [supportedCurrencies.json](https://github.com/mxpaspa/currency-converter-cli/blob/master/supportedCurrencies.json)
+#### For a symbols reference [supportedCurrencies.json](https://github.com/mxpaspa/currency-converter-cli/blob/master/supportedCurrencies.json)
 
-#### 4. After logging in you can retrieve your conversion history: this will show you the last 5 conversions executed
+#### 4. After logging in you can retrieve your conversion history, which will present the last 5 conversions executed
 ```
-logs <username> <password>
+logs 
 ```
 #### 5. In application help:
 ```
