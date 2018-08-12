@@ -1,10 +1,18 @@
 const menus = {
   main: `
-    
-    create a user .............. converter create-user <username> <password>
-    login ...................... converter login
-    logs ................... logs (will show the last 5 conversions)
-    help ....................... show help menu for a command`,
+
+    create a user ...............'converter create-user <username> <password>''
+    login .......................'converter login'
+    show help.................... 'converter help'
+
+    ----------- AFTER AUTHENTICATING ----------------------
+
+    make a conversion ...........'convert <home currency> <exchange currency> <amount>'
+                                 'convert USD EUR 10'
+    show conversion history .....'logs' (will show the last 5 conversions)
+    show help ................... 'help'
+
+    `
 
 }
 

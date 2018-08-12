@@ -29,7 +29,7 @@ converter login
 #### 3. Once you are authenticated run your first conversion.
 
 ```
-converter <home currency> <exchange currency> <amount>
+convert <home currency> <exchange currency> <amount>
 ```
 *For example:*
 ```
