@@ -1,21 +1,23 @@
 const Logs = require('../models/conversionHistoryModel')
 const logFiles = require('./convert')
 const mongoose = require('mongoose')
-const User = require('../models/userModel')
 const ora = require('ora')
 const terminalStyle = require('../index')
 
 
-module.exports = async(loginUserName) => {
+module.exports = async() => {
 
   var mongoose = require('mongoose');
-  var uri = 'mongodb://paspam:convertercli12@ds117422.mlab.com:17422/converter-cli';
+  var uri = 'mongodb://localhost:27017/convertercli';
 
   var options = {
         "keepAlive" : 300000,
         "connectTimeoutMS" : 30000,
         useNewUrlParser: true
   }
+  mongoose.connect(uri, options);
+  var db = mongoose.connection;
+  db.on('error', console.error.bind(console, 'connection error:'));
 
   var logStyle ={
     header:
@@ -30,17 +32,15 @@ module.exports = async(loginUserName) => {
 ---------------------------------------------------------------------
 `
   }
-  mongoose.connect(uri, options);
-  var db = mongoose.connection;
-  db.on('error', console.error.bind(console, 'connection error:'));
+
 
   try {
 
-        User.findOne({username : loginUserName},{ logFiles: { $slice: -5 } })
-        .then(function(record){
+        Logs.find().limit(5)
+
 
         console.log(logStyle.header);
-        for(var i = 0; i < record.logFiles.length; i++){
+        for(var i = 0; i < Logs.logFiles.length; i++){
 
           console.log(
             // `---------------------------------------------------------------------`+ '\n' +
@@ -57,7 +57,7 @@ module.exports = async(loginUserName) => {
         }
         console.log(logStyle.footer);
 
-      })
+      
       // console.log(terminalStyle.width);
 
   } catch (err) {

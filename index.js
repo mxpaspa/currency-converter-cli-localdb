@@ -29,70 +29,84 @@ module.exports = () => {
 
   switch (cmd) {
 
+    case 'convert':
+      let homeCurrency = args._[1]
+      let exchangeCurrency = args._[2]
+      let amount = args._[3]
+      // dbCommands.connectDb(function(db){
+      // //          const spinner = ora().start();
+      //         db.on('connect',console.log('connected'))
+      //          db.on('error', console.error.bind(console, 'connection error:'));
+      // });
+        require('./cmds/convert')(homeCurrency,exchangeCurrency,amount)
+      break
+
     case 'help':
       require('./cmds/help')(args)
       break
 
-    case 'create-user':
-      let un = args._[1]
-      let pw = args._[2]
-      const spinner = ora().start()
-      dbCommands.connectDb(function(db){
-
-        db.on('error', console.error.bind(console, 'connection error:'));
-        dbCommands.createUser(User,un,pw,function(newUser){
-
-          if(newUser) {
-              spinner.stop()
-              console.log("Successfully created user!"+ '\n' +
-              "login by entering 'converter login'");
-              process.exit(0)
-          }
-          else {
-            console.log("failed to create user");
-          }
-
-
-        })
-      })
-
+    case 'logs':
+      require('./cmds/showLogs')
       break
+    // case 'create-user':
+    //   let un = args._[1]
+    //   let pw = args._[2]
+    //   const spinner = ora().start()
+    //   dbCommands.connectDb(function(db){
+    //
+    //     db.on('error', console.error.bind(console, 'connection error:'));
+    //     dbCommands.createUser(User,un,pw,function(newUser){
+    //
+    //       if(newUser) {
+    //           spinner.stop()
+    //           console.log("Successfully created user!"+ '\n' +
+    //           "login by entering 'converter login'");
+    //           process.exit(0)
+    //       }
+    //       else {
+    //         console.log("failed to create user");
+    //       }
+    //
+    //
+    //     })
+    //   })
+    //   break
 
 
-    case 'login':
-      prompt.start();
-      prompt.get(['username', 'password'], function (err, result) {
-
-      let loginUn = result.username
-      let loginPw = result.password
-
-        if(loginUn && loginPw){
-          // define the mlab database url
-          dbCommands.loginUserName = loginUn
-          dbCommands.loginPassword = loginPw
-          dbCommands.connectDb(function(db){
-             const spinner = ora().start();
-
-             db.on('error', console.error.bind(console, 'connection error:'));
-               //lOGIN QUERY
-               dbCommands.findUser(User,loginUn,loginPw,function(user){
-                  if(user) {
-                      spinner.stop();
-                      console.log("Success! you are logged in");
-
-                      // initialize the CLI if the user authenticates
-                     cli.init()
-                }
-                else {
-                    terminalStyle.horizontalLine()
-                    console.log("Authentication Failed");
-                    process.exit(1)
-                  }
-               })
-           })
-        }
-      });
-      break
+    // case 'login':
+    //   prompt.start();
+    //   prompt.get(['username', 'password'], function (err, result) {
+    //
+    //   let loginUn = result.username
+    //   let loginPw = result.password
+    //
+    //     if(loginUn && loginPw){
+    //       // define the mlab database url
+    //       dbCommands.loginUserName = loginUn
+    //       dbCommands.loginPassword = loginPw
+    //       dbCommands.connectDb(function(db){
+    //          const spinner = ora().start();
+    //
+    //          db.on('error', console.error.bind(console, 'connection error:'));
+    //            //lOGIN QUERY
+    //            dbCommands.findUser(User,loginUn,loginPw,function(user){
+    //               if(user) {
+    //                   spinner.stop();
+    //                   console.log("Success! you are logged in");
+    //
+    //                   // initialize the CLI if the user authenticates
+    //                  cli.init()
+    //             }
+    //             else {
+    //                 terminalStyle.horizontalLine()
+    //                 console.log("Authentication Failed");
+    //                 process.exit(1)
+    //               }
+    //            })
+    //        })
+    //     }
+    //   });
+    //   break
 
       case 'version':
         require('./cmds/version')(args)
@@ -103,145 +117,6 @@ module.exports = () => {
         break
   }
 
-  // Init script
-  cli.init = function(){
 
-    console.log('\x1b[34m%s\x1b[0m','converter-cli is running');
-
-    var _interface = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout,
-      prompt: ''
-    });
-
-    // Create an initial prompt
-    _interface.prompt();
-
-    // Handle each line of input separately
-    _interface.on('line', function(str){
-
-      // Send to the input processor
-      cli.processInput(str);
-
-      // Re-initialize the prompt afterwards
-      _interface.prompt();
-    });
-
-    // If the user stops the CLI, kill the associated process
-    _interface.on('close', function(){
-      process.exit(0);
-    });
-
-    // process.stdout.on('resize', () => {
-    //   console.log('screen size has changed!');
-    //   console.log(`${process.stdout.columns}x${process.stdout.rows}`);
-    // });
-
-  };
-
-  // handle user input and send to the appropriate event
-  cli.processInput = function(str){
-    str = typeof(str) == 'string' && str.trim().length > 0 ? str.trim() : false;
-
-    if(str){
-
-      var uniqueInputs = [
-
-        'help',
-        'logs',
-        'convert',
-        'symbols'
-
-      ];
-
-      // verfiy the user is sending valid input
-      var matchFound = false;
-      var counter = 0;
-      uniqueInputs.some(function(input){
-        if(str.toLowerCase().indexOf(input) > -1){
-          matchFound = true;
-          // Emit event matching the unique input, and include the full string given
-          e.emit(input,str);
-          return true;
-        }
-      });
-
-      // If no match is found, tell the user to try again
-      if(!matchFound){
-        console.log("Did not match any possible commands");
-      }
-
-    }
-  };
-
-
-  // Create centered text on the screen
-  cli.centered = function(str){
-    str = typeof(str) == 'string' && str.trim().length > 0 ? str.trim() : '';
-
-    // Get the available screen size
-    var width = process.stdout.columns;
-
-    // Calculate the left padding there should be
-    var leftPadding = Math.floor((width - str.length) / 2);
-
-    // Put in left padded spaces before the string itself
-    var line = '';
-    for (i = 0; i < leftPadding; i++) {
-        line+=' ';
-    }
-    line+= str;
-    console.log(line);
-  };
-
-  // handle the 'help' event
-  e.on('help',function(str){
-
-    require('./cmds/help')(str)
-  });
-
-  // handle the 'logs' event
-  e.on('logs',function(str){
-
-    dbCommands.connectDb(function(db){
-      const spinner = ora().start()
-      db.on('error', console.error.bind(console, 'connection error:'));
-      dbCommands.findUser(User,dbCommands.loginUserName,dbCommands.loginPassword,function(user){
-
-        if(user) {
-
-            spinner.stop()
-            require('./cmds/showLogs')(dbCommands.loginUserName)
-
-        }
-        else {
-
-          console.log("You are not authenticated");
-
-        }
-      })
-    })
-  });
-
-  // handle the 'convert' event
-  e.on('convert',function(str){
-    var arr = str.split(' ');
-    var homeCurrency = typeof(arr[1]) == 'string' && arr[1].trim().length == 3 ? arr[1].trim() : false;
-    var exchangeCurrency = typeof(arr[2]) == 'string' && arr[2].trim().length == 3 ? arr[2].trim() : false;
-    var amount = typeof(arr[3]) == 'string' && arr[1].trim().length > 0 ? arr[3].trim() : false;
-
-    if(homeCurrency && exchangeCurrency && amount !== false){
-      // (homeCurrency !== false) && (exchangeCurrency !== false) && (amount !== false)
-      require('./cmds/convert')(homeCurrency,exchangeCurrency,amount,dbCommands.loginUserName)
-
-    } else {
-      console.log("Currecnies must be of the format 'USD' or 'EUR' and make sure to include an amount");
-    }
-
-  });
-
-  e.on('symbols',function(str){
-    require('./cmds/symbols')()
-  });
 
 }

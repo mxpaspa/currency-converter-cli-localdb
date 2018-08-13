@@ -5,10 +5,25 @@ const User = require('../models/userModel')
 // const dbCommands = require('./db')
 
 
-module.exports = async (homeCurrency,exchangeCurrency,amount,loginUserName) => {
-  const spinner = ora().start()
+module.exports = async (homeCurrency,exchangeCurrency,amount) => {
+const spinner = ora().start()
+var mongoose = require('mongoose');
+var uri = 'mongodb://localhost:27017';
 
+var options = {
+
+      useNewUrlParser: true
+}
+mongoose.connect(uri,function(err, db,options) {
+
+  console.log("Connected correctly to server");
+
+});
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
   try {
+
+
 
     const conversion = await getConversion(homeCurrency,exchangeCurrency,amount)
     // const weather = await getWeather(location)
@@ -38,15 +53,21 @@ module.exports = async (homeCurrency,exchangeCurrency,amount,loginUserName) => {
     let epoch = convertToEpoch(unixTime)
 
     // save the log file first to trigger the pre save event and add 'create-at' timestamp
-    logFile.save()
+    logFile.save(function(err){
+      if(err){
+        console.log(err);
+      } else {
+        console.log('saved');
+      }
+    })
 
-    User.findOne({username : loginUserName}).then(function(record){
+    // User.findOne({username : loginUserName}).then(function(record){
+    //
+    //   record.logFiles.push(logFile);
+    //   record.save();
 
-      record.logFiles.push(logFile);
-      record.save();
 
-
-    });
+    // });
 
     console.log(
       '\n' +

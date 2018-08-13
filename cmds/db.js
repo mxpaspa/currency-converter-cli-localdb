@@ -1,7 +1,7 @@
-var loginUserName = "";
-var loginPassword = "";
-var mongoose = require('mongoose');
-var uri = 'mongodb://paspam:convertercli12@ds117422.mlab.com:17422/converter-cli';
+// var loginUserName = "";
+// var loginPassword = "";
+// var mongoose = require('mongoose');
+// var uri = 'mongodb://localhost:27017/convertercli';
 
 // define a timeout (required for mlab)
 var options = {
@@ -10,19 +10,19 @@ var options = {
       useNewUrlParser: true
 }
 
-function findUser(User,loginUserName,loginPassword, cb) {
-    User.findOne({username : loginUserName}).then(function(record,isMatch){
-      record.comparePassword(loginPassword,function(err,isMatch){
-        if (err) throw err;
-        cb(isMatch);
-    });
-  });
-}
+// function findUser(User,loginUserName,loginPassword, cb) {
+//     User.findOne({username : loginUserName}).then(function(record,isMatch){
+//       record.comparePassword(loginPassword,function(err,isMatch){
+//         if (err) throw err;
+//         cb(isMatch);
+//     });
+//   });
+// }
 
 
 function connectDb(cb) {
   var mongoose = require('mongoose');
-  var uri = 'mongodb://paspam:convertercli12@ds117422.mlab.com:17422/converter-cli';
+  var uri = 'mongodb://localhost:27017/convertercli';
 
   // define a timeout (required for mlab)
   var options = {
@@ -34,33 +34,33 @@ function connectDb(cb) {
   var db = mongoose.connection;
   cb(db);
 }
+//
+//
+//
+// function createUser(User,un,pw,cb){
+//
+//   var newUser = new User({
+//       username: un,
+//       password: pw,
+//   });
+//   newUser.save(function() {
+//     User.find().findOne({username : newUser.username}).then(function(record,err){
+//
+//           if (err) throw err;
+//           cb(record);
+//
+//       });
+//     });
+// };
 
 
 
-function createUser(User,un,pw,cb){
-
-  var newUser = new User({
-      username: un,
-      password: pw,
-  });
-  newUser.save(function() {
-    User.find().findOne({username : newUser.username}).then(function(record,err){
-
-          if (err) throw err;
-          cb(record);
-
-      });
-    });
-};
-
-
-
-
-
+//
+//
 module.exports  =  {
-  findUser,
+  // findUser,
   connectDb,
-  createUser,
-  loginUserName,
-  loginPassword,
+  // createUser,
+  // loginUserName,
+  // loginPassword,
 }
