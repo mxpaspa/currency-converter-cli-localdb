@@ -1,10 +1,4 @@
-// const Logs = require('../models/conversionHistoryModel')
-const logs = require('./convert')
-// const db = require('./db')
-// const mongoose = require('mongoose')
-const ora = require('ora')
-
-module.exports = async(Logs,db) => {
+module.exports = async(data) => {
 
   var logStyle ={
     header:
@@ -20,42 +14,26 @@ module.exports = async(Logs,db) => {
 `
   }
 
-
   try {
 
-        // var mongoose = require('mongoose');
-        // var uri = 'mongodb://localhost:27017/converter-cli';
-        //
-        // // define a timeout (required for mlab)
-        // var options = {
-        //       "keepAlive" : 300000,
-        //       "connectTimeoutMS" : 30000,
-        //       useNewUrlParser: true
-        // }
-        // mongoose.connect(uri, options);
-        // var db = mongoose.connection;
-
-
         console.log(logStyle.header);
-        // for(var i = 0; i < Logs.length; i++){
+        for(var i = 0; i < data.length; i++){
 
           console.log(
 
-            // "created at: "+history[i]+ '\n' +
-            // "your home currency: "+history[i]+ '\n' +
-            // "your exchange currenncy: "+history[i]+ '\n' +
-            // "converted amount: "+history[i]+ '\n' +
-            // "conversion executed on: "+history[i]+ '\n' +
-            // "date since conversion rate changed: "+history[i]+ '\n' +
-            // "conversion rate: "+history[i]+ '\n'
-            
+            "created at: "+data[i].created_at+ '\n' +
+            "your home currency: "+data[i].homeCurrency+ '\n' +
+            "your exchange currenncy: "+data[i].exchangeCurrency+ '\n' +
+            "converted amount: "+data[i].convertedAmount+ '\n' +
+            "conversion executed on: "+data[i].dateConversionRan+ '\n' +
+            "date since conversion rate changed: "+data[i].timeConversionCollected+ '\n' +
+            "conversion rate: "+data[i].conversionRate+ '\n'
+
           );
 
-
-        console.log(logStyle.footer);
-
-
-      // console.log(terminalStyle.width);
+      }
+      console.log(logStyle.footer);
+      process.exit(1)
 
   } catch (err) {
         console.error(err)

@@ -1,9 +1,6 @@
 const ora = require('ora')
 const getConversion = require('../utils/converterApi')
 const Log = require('../models/conversionHistoryModel')
-// const User = require('../models/userModel')
-// const dbCommands = require('./db')
-
 
 module.exports = async (homeCurrency,exchangeCurrency,amount) => {
 const spinner = ora().start()
@@ -11,11 +8,9 @@ const spinner = ora().start()
   try {
 
     const conversion = await getConversion(homeCurrency,exchangeCurrency,amount)
-    // const weather = await getWeather(location)
 
     spinner.stop()
 
-    // creat a logFile from the Log schema after a conversion is returned
     const logFile = new Log({
       homeCurrency : conversion.query.from,
       exchangeCurrency : conversion.query.to,
@@ -37,7 +32,6 @@ const spinner = ora().start()
     let unixTime = conversion.info.timestamp
     let epoch = convertToEpoch(unixTime)
 
-    // save the log file first to trigger the pre save event and add 'create-at' timestamp
     logFile.save(function(err){
       if(err){
         console.log(err);
@@ -45,14 +39,6 @@ const spinner = ora().start()
         console.log('saved');
       }
     })
-
-    // User.findOne({username : loginUserName}).then(function(record){
-    //
-    //   record.logFiles.push(logFile);
-    //   record.save();
-
-
-    // });
 
     console.log(
       '\n' +
