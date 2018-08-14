@@ -1,29 +1,14 @@
 const ora = require('ora')
 const getConversion = require('../utils/converterApi')
 const Log = require('../models/conversionHistoryModel')
-const User = require('../models/userModel')
+// const User = require('../models/userModel')
 // const dbCommands = require('./db')
 
 
 module.exports = async (homeCurrency,exchangeCurrency,amount) => {
 const spinner = ora().start()
-var mongoose = require('mongoose');
-var uri = 'mongodb://localhost:27017';
 
-var options = {
-
-      useNewUrlParser: true
-}
-mongoose.connect(uri,function(err, db,options) {
-
-  console.log("Connected correctly to server");
-
-});
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
   try {
-
-
 
     const conversion = await getConversion(homeCurrency,exchangeCurrency,amount)
     // const weather = await getWeather(location)

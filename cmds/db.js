@@ -22,7 +22,7 @@ var options = {
 
 function connectDb(cb) {
   var mongoose = require('mongoose');
-  var uri = 'mongodb://localhost:27017/convertercli';
+  var uri = 'mongodb://localhost:27017/converter-cli';
 
   // define a timeout (required for mlab)
   var options = {
@@ -31,8 +31,8 @@ function connectDb(cb) {
         useNewUrlParser: true
   }
   mongoose.connect(uri, options);
-  var db = mongoose.connection;
-  cb(db);
+  var connection = mongoose.connection;
+  cb(connection);
 }
 //
 //

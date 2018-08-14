@@ -1,23 +1,10 @@
-const Logs = require('../models/conversionHistoryModel')
-const logFiles = require('./convert')
-const mongoose = require('mongoose')
+// const Logs = require('../models/conversionHistoryModel')
+const logs = require('./convert')
+// const db = require('./db')
+// const mongoose = require('mongoose')
 const ora = require('ora')
-const terminalStyle = require('../index')
 
-
-module.exports = async() => {
-
-  var mongoose = require('mongoose');
-  var uri = 'mongodb://localhost:27017/convertercli';
-
-  var options = {
-        "keepAlive" : 300000,
-        "connectTimeoutMS" : 30000,
-        useNewUrlParser: true
-  }
-  mongoose.connect(uri, options);
-  var db = mongoose.connection;
-  db.on('error', console.error.bind(console, 'connection error:'));
+module.exports = async(Logs,db) => {
 
   var logStyle ={
     header:
@@ -36,28 +23,38 @@ module.exports = async() => {
 
   try {
 
-        Logs.find().limit(5)
+        // var mongoose = require('mongoose');
+        // var uri = 'mongodb://localhost:27017/converter-cli';
+        //
+        // // define a timeout (required for mlab)
+        // var options = {
+        //       "keepAlive" : 300000,
+        //       "connectTimeoutMS" : 30000,
+        //       useNewUrlParser: true
+        // }
+        // mongoose.connect(uri, options);
+        // var db = mongoose.connection;
 
 
         console.log(logStyle.header);
-        for(var i = 0; i < Logs.logFiles.length; i++){
+        // for(var i = 0; i < Logs.length; i++){
 
           console.log(
-            // `---------------------------------------------------------------------`+ '\n' +
-            "created at: "+record.logFiles[i].created_at+ '\n' +
-            "your home currency: "+record.logFiles[i].homeCurrency+ '\n' +
-            "your exchange currenncy: "+record.logFiles[i].exchangeCurrency+ '\n' +
-            "converted amount: "+record.logFiles[i].convertedAmount+ '\n' +
-            "conversion executed on: "+record.logFiles[i].dateConversionRan+ '\n' +
-            "date since conversion rate changed: "+record.logFiles[i].timeConversionCollected+ '\n' +
-            "conversion rate: "+record.logFiles[i].conversionRate+ '\n'
 
+            // "created at: "+history[i]+ '\n' +
+            // "your home currency: "+history[i]+ '\n' +
+            // "your exchange currenncy: "+history[i]+ '\n' +
+            // "converted amount: "+history[i]+ '\n' +
+            // "conversion executed on: "+history[i]+ '\n' +
+            // "date since conversion rate changed: "+history[i]+ '\n' +
+            // "conversion rate: "+history[i]+ '\n'
+            
           );
 
-        }
+
         console.log(logStyle.footer);
 
-      
+
       // console.log(terminalStyle.width);
 
   } catch (err) {

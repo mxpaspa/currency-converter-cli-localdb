@@ -6,8 +6,10 @@ const minimist = require('minimist')
 const error = require('./utils/error')
 const prompt = require('prompt')
 const User = require('./models/userModel')
+const Logs = require('./models/conversionHistoryModel')
 const ora = require('ora')
-const dbCommands = require('./cmds/db');
+const dbCommands = require('./cmds/db')
+
 // const terminalStyle = require('./utils/terminalStyle')
 
 module.exports = () => {
@@ -33,12 +35,31 @@ module.exports = () => {
       let homeCurrency = args._[1]
       let exchangeCurrency = args._[2]
       let amount = args._[3]
-      // dbCommands.connectDb(function(db){
-      // //          const spinner = ora().start();
-      //         db.on('connect',console.log('connected'))
-      //          db.on('error', console.error.bind(console, 'connection error:'));
+      // var mongoose = require('mongoose');
+      // var uri = 'mongodb://localhost:27017/currency-converter-cli-localdb';
+      //
+      // var options = {
+      //       "keepAlive" : 300000,
+      //       "connectTimeoutMS" : 30000,
+      //       useNewUrlParser: true
+      // }
+      // mongoose.connect(uri, options,function(err,db){
+      //   if(db){
+      dbCommands.connectDb(function(connection){
+      //
+            connection.on('error', console.error.bind(console, 'connection error:'));
+            if(connection){
+              console.log('db')
+              require('./cmds/convert')(homeCurrency,exchangeCurrency,amount)
+            }
+
+        });
+
+
+      //     var db = mongoose.connection;
+      //     db.on('error', console.error.bind(console, 'connection error:'));
+      //   }
       // });
-        require('./cmds/convert')(homeCurrency,exchangeCurrency,amount)
       break
 
     case 'help':
@@ -46,8 +67,27 @@ module.exports = () => {
       break
 
     case 'logs':
-      require('./cmds/showLogs')
-      break
+    var mongoose = require('mongoose');
+    var uri = 'mongodb://localhost:27017/converter-cli';
+
+    // define a timeout (required for mlab)
+    var options = {
+          "keepAlive" : 300000,
+          "connectTimeoutMS" : 30000,
+          useNewUrlParser: true
+    }
+    mongoose.connect(uri, options);
+    var connection = mongoose.connection;
+    connection.once('open', function () {
+
+    connection.db.collection("logs", function(err, collection){
+          collection.find({}).toArray(function(err, data){
+              console.log(data); // it will print your collection data
+          })
+      });
+
+    });
+    break
     // case 'create-user':
     //   let un = args._[1]
     //   let pw = args._[2]
