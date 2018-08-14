@@ -31,19 +31,19 @@ module.exports = () => {
       dbCommands.connectDb(function(connection){
 
           connection.on('error', console.error.bind(console, 'connection error:'));
-          if(connection){
 
-            console.log('db')
             require('./cmds/convert')(homeCurrency,exchangeCurrency,amount)
-            
-              if (conversion){
-                process.exit(1)
-              }
+            .then(function(result){
+                  if (result){
+                    console.log('conversion completed');
+                    process.exit(1)
+                  }
+              })
+              .catch(function (error){
+                  console.log(error);
+              });
 
-            })
-          }
-
-        });
+            });
       break
 
     case 'help':
@@ -55,7 +55,7 @@ module.exports = () => {
         connection.once('open', function () {
 
         connection.db.collection("logs", function(err, collection){
-              collection.find({}).toArray(function(err, data){
+              collection.find({}).limit(5).toArray(function(err, data){
                   // console.log(data); // it will print your collection data
                   require('./cmds/showLogs')(data)
               })

@@ -35,10 +35,9 @@ const spinner = ora().start()
     logFile.save(function(err){
       if(err){
         console.log(err);
-      } else {
-        console.log('saved');
       }
     })
+
 
     console.log(
       '\n' +
@@ -48,6 +47,7 @@ const spinner = ora().start()
       "conversion rate: "+conversion.info.rate+ '\n' +
       "date since conversion rate changed: "+conversion.date,epoch+ '\n'
     )
+  return conversion
 
   } catch (err) {
     spinner.stop()
