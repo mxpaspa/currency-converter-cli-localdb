@@ -32,19 +32,12 @@ module.exports = () => {
 
           connection.on('error', console.error.bind(console, 'connection error:'));
 
-            require('./cmds/convert')(homeCurrency,exchangeCurrency,amount)
-            .then(function(result){
-                  if (result){
-                    console.log('conversion completed');
-                    // process.exit(1)
-
-                  }
-              })
-              .catch(function (error){
-                  console.log(error);
-              });
-
+            require('./cmds/convert')(homeCurrency,exchangeCurrency,amount,function(status){
+              if(status){
+                process.exit(1)
+              }
             });
+        });
       break
 
     case 'help':

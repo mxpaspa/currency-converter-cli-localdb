@@ -2,7 +2,7 @@ const ora = require('ora')
 const getConversion = require('../utils/converterApi')
 const Log = require('../models/conversionHistoryModel')
 
-module.exports = async (homeCurrency,exchangeCurrency,amount) => {
+module.exports = async (homeCurrency,exchangeCurrency,amount,cb) => {
 const spinner = ora().start()
 
   try {
@@ -35,6 +35,8 @@ const spinner = ora().start()
     logFile.save(function(err){
       if(err){
         console.log(err);
+      } else {
+        cb(true)
       }
     })
 
