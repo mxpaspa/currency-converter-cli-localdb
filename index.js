@@ -57,8 +57,11 @@ module.exports = () => {
 
         connection.db.collection("logs", function(err, collection){
               collection.find({}).sort({created_at: -1}).limit(5).toArray(function(err, data){
-                  // console.log(data); // it will print your collection data
-                  require('./cmds/showLogs')(data)
+                  require('./cmds/showLogs')(data,function(status){
+                    if(true){
+                      process.exit(1);
+                    }
+                  })
               })
           });
 

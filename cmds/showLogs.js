@@ -1,4 +1,4 @@
-module.exports = async(data) => {
+module.exports = async(data,cb) => {
 
   var logStyle ={
     header:
@@ -33,6 +33,7 @@ module.exports = async(data) => {
 
       }
       console.log(logStyle.footer);
+      cb(true)
       // process.exit(1)
 
   } catch (err) {
