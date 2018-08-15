@@ -36,7 +36,8 @@ module.exports = () => {
             .then(function(result){
                   if (result){
                     console.log('conversion completed');
-                    process.exit(1)
+                    // process.exit(1)
+
                   }
               })
               .catch(function (error){
@@ -55,7 +56,7 @@ module.exports = () => {
         connection.once('open', function () {
 
         connection.db.collection("logs", function(err, collection){
-              collection.find({}).limit(5).toArray(function(err, data){
+              collection.find({}).sort({created_at: -1}).limit(5).toArray(function(err, data){
                   // console.log(data); // it will print your collection data
                   require('./cmds/showLogs')(data)
               })

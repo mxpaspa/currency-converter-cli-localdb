@@ -33,7 +33,7 @@ module.exports = async(data) => {
 
       }
       console.log(logStyle.footer);
-      process.exit(1)
+      // process.exit(1)
 
   } catch (err) {
         console.error(err)
