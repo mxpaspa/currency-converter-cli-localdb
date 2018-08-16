@@ -13,47 +13,31 @@ A CLI application that makes real-time currency conversions
 ```
 converter help
 ```
-#### 5. You can also view the current version from anywhere in your terminal by entering:
+#### 6. You can also view the current version from anywhere in your terminal by entering:
 ```
 converter version
 ```
 
 ## Usage
 
-#### 1. Create a user:
+#### 1. Run a conversion:
 
-```
-converter create-user <username> <password>
-```
-#### 2. Login and enter your credentials: 
+converter convert <home currency> <exchange currency> <amount>
 
-```
-converter login
-```
-#### 3. Once you are authenticated, run your first conversion:
-
-```
-convert <home currency> <exchange currency> <amount>
-```
 *For example:*
 ```
-convert USD EUR 10
+converter convert USD EUR 10
 ```
 
-#### 4. Retrieve your conversion history, which will present the last 5 conversions executed (you must be authenticated).
+#### 2. Retrieve your conversion history, which will present the last 5 conversions executed.
 ```
-logs
+converter logs
 ```
-#### 5. In application help:
-```
-help
-```
-#### 6. List available symbols:
-```
-symbols
-```
-[supportedCurrencies.json](https://github.com/mxpaspa/converter-cli-refactored/blob/master/utils/supportedCurrencies.json)
 
+#### 3. List available symbols:
+```
+converter symbols
+```
 
 ## Available Currencies
 

@@ -69,6 +69,10 @@ module.exports = () => {
     case 'help':
       require('./cmds/help')(args)
       break
+
+    case 'symbols':
+      require('./cmds/symbols')(args)
+      break
   }
 
 }
